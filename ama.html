@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Amazon Clone Dynamic</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body {
+    background-color: #f7f1f0;
+    font-family: 'Inter', sans-serif;
+  }
+  .header-title {
+    font-weight: 900;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #0f172a; /* Dark Slate Blue */
+    text-align: center;
+    user-select: none;
+  }
+  .card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(290px,1fr));
+    gap: 1.5rem;
+    padding: 0 1rem 3rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .card {
+    background-color: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 10px rgb(0 0 0 / 0.1);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .card:hover, .card:focus {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgb(0 0 0 / 0.15);
+    outline: none;
+  }
+  .card-title {
+    font-weight: 700;
+    padding: 1rem 1rem 0.5rem 1rem;
+    font-size: 1.15rem;
+    color: #111827;
+  }
+  .card-image {
+    padding: 0 1rem 1rem 1rem;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .card-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.3rem;
+    object-fit: contain;
+    box-shadow: 0 4px 8px rgb(0 0 0 / 0.05);
+    transition: transform 0.3s ease;
+  }
+  .card:hover .card-image img, .card:focus .card-image img {
+    transform: scale(1.05);
+  }
+  /* Responsive heading */
+  @media (max-width: 640px) {
+    .header-title {
+      font-size: 2rem;
+    }
+  }
+</style>
+</head>
+<body>
+<h1 class="header-title" tabindex="0">Amazon Clone</h1>
+
+<div id="cards" class="card-container" role="list" aria-label="Dynamic product categories"></div>
+
+<script>
+  // Array of items dynamically rendered - each with a name, a company site, and image
+  const items = [
+    {
+      name: "Smartphones - Tecno POP 7 Pro 4GB RAM",
+      url: "https://www.tecno-mobile.com",
+      img: "https://placehold.co/600x400/png?text=Tecno+POP+7+Pro+Smartphone,+Black+Front+View",
+      imgAlt: "Tecno POP 7 Pro smartphone front view with 4GB RAM"
+    },
+    {
+      name: "Bluetooth Calling Smartwatch - boAt",
+      url: "https://www.boat-lifestyle.com",
+      img: "https://placehold.co/600x400/png?text=boAt+Bluetooth+Calling+Smartwatch+with+colorful+screen",
+      imgAlt: "boAt brand Bluetooth calling smartwatch with vibrant screen and black strap"
+    },
+    {
+      name: "Home Décor - Flower Vases Set",
+      url: "https://www.ikea.com",
+      img: "https://placehold.co/600x400/png?text=Decorative+Flower+Vases+Set+on+White+Background",
+      imgAlt: "Decorative artistic flower vases set with floral design on white background"
+    },
+    {
+      name: "Headphones - boAt Wired & Boult Wireless",
+      url: "https://www.boat-lifestyle.com",
+      img: "https://placehold.co/600x400/png?text=boAt+Wired+Headphones+and+Boult+Wireless+Earbuds",
+      imgAlt: "boAt wired headphones and Boult wireless earbuds displayed side by side"
+    },
+    {
+      name: "Men's Styles - Clothing & Footwear",
+      url: "https://www.myntra.com/mens-fashion",
+      img: "https://placehold.co/600x400/png?text=Men+Clothing+and+Footwear+Collection+on+Racks",
+      imgAlt: "Fashionable men's clothing and footwear showcased on store racks"
+    },
+    {
+      name: "Bags & Luggage - Handbags & Travel Bags",
+      url: "https://www.theworldofbags.com",
+      img: "https://placehold.co/600x400/png?text=Collection+of+Handbags+and+Travel+Bags",
+      imgAlt: "Colorful handbags and travel bags arranged aesthetically on display"
+    }
+  ];
+
+  const cardsContainer = document.getElementById('cards');
+
+  // Dynamically generate cards with click redirect
+  items.forEach((item, index) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.tabIndex = 0;
+    card.setAttribute('role', 'listitem');
+    card.setAttribute('aria-label', item.name + " - click to visit company site");
+    card.onclick = () => {
+      window.open(item.url, '_blank', 'noopener,noreferrer');
+    };
+    // Keyboard accessibility: Enter or Space triggers the click
+    card.onkeydown = (e) => {
+      if(e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.click();
+      }
+    };
+
+    card.innerHTML = `
+      <div class="card-title">${item.name}</div>
+      <div class="card-image">
+        <img src="${item.img}" alt="${item.imgAlt}" onerror="this.onerror=null;this.src='https://placehold.co/600x400/png?text=Image+not+available';" />
+      </div>
+    `;
+
+    cardsContainer.appendChild(card);
+  });
+</script>
+
+</body>
+</html>
+

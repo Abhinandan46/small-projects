@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dynamic Sign In Page</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #3a2a57, #2c2541);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+      color: #ddd;
+      user-select: none;
+    }
+    .container {
+      background: rgba(40, 33, 69, 0.9);
+      border-radius: 1rem;
+      backdrop-filter: saturate(180%) blur(20px);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      max-width: 900px;
+      width: 100%;
+      box-shadow:
+        0 4px 6px rgb(48 38 91 / 0.5),
+        0 1px 3px rgb(48 38 91 / 0.3);
+      overflow: hidden;
+    }
+    @media (max-width: 768px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+      .left-panel {
+        border-radius: 1rem 1rem 0 0;
+      }
+      .right-panel {
+        border-radius: 0 0 1rem 1rem;
+      }
+    }
+
+    /* Left side styling */
+    .left-panel {
+      background: linear-gradient(180deg, #4b3d91 0%, #311e6d 100%);
+      padding: 3rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      color: #f3eefd;
+      position: relative;
+    }
+    .brand-logo {
+      font-weight: 800;
+      font-size: 1.75rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 3rem;
+      user-select: none;
+      cursor: default;
+    }
+    .left-image-container {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      border-radius: 1rem;
+      box-shadow: 0 15px 25px rgb(46 38 91 / 0.6);
+      cursor: default;
+    }
+    .left-image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 400ms ease;
+      border-radius: 1rem;
+      will-change: transform;
+    }
+    .left-image-container:hover img {
+      transform: scale(1.05);
+    }
+    .left-text {
+      margin-top: 2rem;
+      font-size: 1.5rem;
+      line-height: 1.3;
+      font-weight: 600;
+      max-width: 14rem;
+    }
+    .back-button {
+      position: absolute;
+      top: 1.5rem;
+      right: 2rem;
+      color: #c9bfffcc;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: color 0.2s ease;
+    }
+    .back-button:hover {
+      color: #eee;
+    }
+    .back-button svg {
+      stroke: currentColor;
+      stroke-width: 2;
+      width: 14px;
+      height: 14px;
+      transform: translateX(-2px);
+    }
+
+    /* Right side styling */
+    .right-panel {
+      background: #251f46;
+      padding: 3rem 3rem 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-radius: 0 1rem 1rem 0;
+    }
+    .right-panel h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #f4f1ff;
+      user-select: none;
+    }
+    .login-subtext {
+      font-size: 0.9rem;
+      color: #a29fff;
+      margin-bottom: 2.5rem;
+      user-select: none;
+    }
+    .login-subtext a {
+      color: #877eff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.25s ease;
+    }
+    .login-subtext a:hover {
+      color: #a59fff;
+      text-decoration: underline;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      padding: 0.85rem 1.2rem;
+      border: none;
+      border-radius: 0.6rem;
+      background: #3a3164;
+      color: #e2dbff;
+      font-size: 1rem;
+      outline-offset: 3px;
+      transition: outline-color 0.25s ease;
+      box-shadow: inset 0 0 6px #211c42;
+      font-family: inherit;
+    }
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+      outline: 3px solid #7764ff;
+      background: #4b4085;
+    }
+    input::placeholder {
+      color: #9b91cacc;
+    }
+
+    .password-wrapper {
+      position: relative;
+    }
+    .password-toggle {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #9b91caaa;
+      font-size: 1.05rem;
+      transition: color 0.2s ease;
+      user-select: none;
+    }
+    .password-toggle:hover {
+      color: #c9bdff;
+    }
+
+    .terms {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: #cfc6ffcc;
+      user-select: none;
+      margin-top: -0.3rem;
+      cursor: pointer;
+    }
+    .terms input[type="checkbox"] {
+      accent-color: #7764ff;
+      cursor: pointer;
+    }
+    .terms a {
+      color: #8a79ff;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.25s ease;
+    }
+    .terms a:hover {
+      color: #b5adff;
+      text-decoration: underline;
+    }
+
+    button[type="submit"] {
+      margin-top: 1.5rem;
+      background: #7764ff;
+      color: #fff;
+      font-weight: 700;
+      border: none;
+      padding: 1rem 0;
+      font-size: 1.15rem;
+      border-radius: 0.8rem;
+      cursor: pointer;
+      box-shadow: 0 10px 20px rgb(119 100 255 / 0.35);
+      transition: background 0.33s ease, box-shadow 0.33s ease;
+      user-select: none;
+    }
+    button[type="submit"]:hover:not(:disabled) {
+      background: #a797ff;
+      box-shadow: 0 12px 26px rgb(167 151 255 / 0.5);
+    }
+    button[type="submit"]:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      color: #726dacbb;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      margin: 2.8rem 0 1.8rem;
+      user-select: none;
+    }
+    .divider::before,
+    .divider::after {
+      content: "";
+      flex-grow: 1;
+      height: 1px;
+      background: #726dac33;
+      margin: 0 1rem;
+      border-radius: 1px;
+    }
+
+    .btn-social {
+      display: flex;
+      gap: 1rem;
+    }
+    .btn-social button {
+      flex: 1;
+      background: #302768;
+      border-radius: 0.7rem;
+      padding: 0.65rem;
+      color: #c9c5ffdd;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      transition: background 0.3s ease, color 0.25s ease;
+      user-select: none;
+    }
+    .btn-social button:hover {
+      background: #4b4090;
+      color: #e4deff;
+    }
+    .btn-social svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+  </style>
+</head>
+<body>
+  <main class="container" role="main" aria-label="Create account sign in form with inspirational photo and dynamic UI">
+    <section class="left-panel" aria-label="Inspirational image and branding">
+      <a href="#" class="back-button" aria-label="Back to website">
+        <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <path d="M7.5 10L4 6.5L7.5 3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Back to website
+      </a>
+      <h1 class="brand-logo" aria-label="AMU brand logo">AMU</h1>
+      <div class="left-image-container" aria-hidden="true">
+        <img
+          src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/0c41822f-fbd5-4c8e-98fa-f17e3e81897b.png"
+          alt="Mysterious purple desert dunes under a smooth gradient twilight sky, softly lit creating an atmosphere of calm and wonder"
+          onerror="this.style.display='none'"
+          />
+      </div>
+      <p class="left-text" aria-describedby="inspirational-text">
+        <span id="inspirational-text">Capturing Moments, Creating Memories</span>
+      </p>
+    </section>
+    <section class="right-panel" aria-label="Sign up form">
+      <h2>Create an account</h2>
+      <p class="login-subtext">Already have an account? <a href="#" tabindex="0">Login</a></p>
+      <form id="signup-form" novalidate aria-describedby="form-instructions">
+        <div class="flex gap-4" aria-label="User's first and last name inputs">
+          <input type="text" name="firstname" id="firstname" placeholder="First name" autocomplete="given-name" required aria-required="true" aria-describedby="firstname-error" />
+          <input type="text" name="lastname" id="lastname" placeholder="Last name" autocomplete="family-name" required aria-required="true" aria-describedby="lastname-error" />
+        </div>
+        <span id="firstname-error" class="sr-only" role="alert"></span>
+        <span id="lastname-error" class="sr-only" role="alert"></span>
+
+        <input type="email" name="email" id="email" placeholder="Email" autocomplete="email" required aria-required="true" aria-describedby="email-error" />
+        <span id="email-error" class="sr-only" role="alert"></span>
+
+        <div class="password-wrapper">
+          <input type="password" name="password" id="password" placeholder="Enter your password" autocomplete="new-password" required aria-required="true" minlength="8" aria-describedby="password-error" />
+          <button type="button" class="password-toggle" aria-label="Toggle password visibility" tabindex="0" aria-pressed="false">
+            <svg fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </button>
+        </div>
+        <span id="password-error" class="sr-only" role="alert"></span>
+
+        <label class="terms" for="terms-checkbox">
+          <input type="checkbox" id="terms-checkbox" required aria-required="true" />
+          I agree to the <a href="#" tabindex="0">Terms & Conditions</a>
+        </label>
+
+        <button type="submit" id="submit-btn" disabled>Create account</button>
+      </form>
+
+      <div class="divider" aria-label="Or sign up with">Or</div>
+
+      <div class="btn-social" role="region" aria-label="Social provider sign in options">
+        <button type="button" id="btn-google" aria-label="Continue with Google" tabindex="0">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21.35 11.1h-9.36v2.92h5.52c-.23 1.2-.92 2.22-1.94 2.9v2.4h3.13c1.83-1.7 2.89-4.14 2.89-7.04 0-.53-.05-1.05-.19-1.54z" stroke="#4285F4"/>
+            <path d="M12 20.5c2.6 0 4.79-.86 6.4-2.33l-3.13-2.4c-.88.59-2.01.95-3.28.95-2.52 0-4.66-1.7-5.42-3.97H3.18v2.48c1.6 3.19 4.88 5.27 8.82 5.27z" stroke="#34A853"/>
+            <path d="M6.58 13.75a5.963 5.963 0 0 1 0-3.51v-2.48H3.18a9.951 9.951 0 0 0 0 8.46l3.4-2.47z" stroke="#FBBC05"/>
+            <path d="M12 7.5c1.44 0 2.72.5 3.73 1.48l2.8-2.8C16.77 4.8 14.6 4 12 4 8.06 4 4.78 6.09 3.18 9.28l3.4 2.48c.76-2.27 2.9-3.98 5.42-3.98z" stroke="#EA4335"/>
+          </svg>
+          Google
+        </button>
+        <button type="button" id="btn-apple" aria-label="Continue with Apple" tabindex="0">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16.365 2.604c-.28.333-.596.63-.936.883-.33.244-.684.448-1.059.608-.37.152-.75.266-1.139.32-.087-.294-.27-.563-.547-.814a2.58 2.58 0 0 0-.66-.456 1.604 1.604 0 0 0-1.014-.136c-.36.095-.656.273-.888.538a3.49 3.49 0 0 0-.635 1.036c-.187.54-.28 1.104-.28 1.695 0 .695.153 1.3.46 1.82.294.504.722.857 1.28 1.052.05.022.1.04.154.053.026.008.05.01.073.01.003 0 .005-.002.007-.005a.015.015 0 0 0 .007-.01c0-.007-.002-.013-.005-.017a.352.352 0 0 0-.03-.03 6.23 6.23 0 0 1-.59-.73c-.1-.133-.184-.258-.254-.376a2.36 2.36 0 0 1-.18-.404 1.449 1.449 0 0 1-.06-.373c0-.16.04-.32.117-.48.06-.107.13-.205.21-.296.237-.278.57-.46 1.01-.57a2.292 2.292 0 0 1 1.29.02c.346.117.613.328.804.642.066.11.11.222.13.34a1.89 1.89 0 0 1 .026.27c.001.06-.002.12-.012.18-.042.25-.128.48-.257.693a1.308 1.308 0 0 1-.63.595c-.06.034-.124.06-.19.08a.585.585 0 0 1-.182.03c-.044 0-.083-.01-.117-.028a.305.305 0 0 1-.084-.058.83.83 0 0 1-.109-.128.45.45 0 0 1-.064-.146.762.762 0 0 1-.04-.176c0-.106.043-.203.128-.288.05-.05.115-.086.196-.107.06-.016.12-.02.185-.02a.63.63 0 0 1 .263.056.853.853 0 0 1 .247.166.87.87 0 0 1 .16.22c.046.095.072.191.08.29 0 .037 0 .074-.005.11-.01.027-.027.05-.05.066a.13.13 0 0 1-.066.02.167.167 0 0 1-.088-.034.366.366 0 0 1-.095-.1.806.806 0 0 1-.064-.176c-.024-.077-.03-.15-.02-.22.006-.04.02-.08.042-.116.027-.043.07-.08.132-.112.05-.03.1-.048.145-.052.053-.003.124 0 .21.01a1.61 1.61 0 0 1 .29.07 1.536 1.536 0 0 1 .264.144c.06.043.114.1.16.17a2.097 2.097 0 0 1 .146.23c.04.07.066.143.08.214zM19.5 16.32a5.4 5.4 0 0 1-1.235 2.93 4.617 4.617 0 0 1-2.626 1.59 4.516 4.516 0 0 1-2.843-.44 4.493 4.493 0 0 1-1.73-1.664 5.607 5.607 0 0 1-.646-3.486 6.336 6.336 0 0 1 1.43-3.258c.92-1.238 2.244-1.928 3.86-2.066.207-.015.41-.017.612-.004a4.664 4.664 0 0 1 2.805 1.19c-.054.062-.103.124-.148.185a9.44 9.44 0 0 0-1.09 1.56c-.35.65-.48 1.293-.46 1.926.034 1.03.645 1.75 1.884 2.16a.77.77 0 0 1-.015.116zm-1.376-3.934a3.837 3.837 0 0 0-1.09-1.345 3.664 3.664 0 0 0-1.77-.977 3.334 3.334 0 0 0-1.604.09 3.425 3.425 0 0 0-1.403 1.093c.011.02.024.05.04.093a5.155 5.155 0 0 0 .25.64c.3.68.73 1.19 1.29 1.53a1.945 1.945 0 0 0 2.953-1.802z"/>
+          </svg>
+          Apple
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      const form = document.getElementById('signup-form');
+      const submitBtn = document.getElementById('submit-btn');
+      const inputs = {
+        firstname: form.firstname,
+        lastname: form.lastname,
+        email: form.email,
+        password: form.password,
+        terms: form.querySelector('#terms-checkbox'),
+      };
+
+      const errors = {
+        firstname: document.getElementById('firstname-error'),
+        lastname: document.getElementById('lastname-error'),
+        email: document.getElementById('email-error'),
+        password: document.getElementById('password-error'),
+      };
+
+      // Validate inputs and toggle submit button
+      const validate = () => {
+        let valid = true;
+
+        // Validate first name
+        if (!inputs.firstname.value.trim()) {
+          errors.firstname.textContent = 'First name is required.';
+          errors.firstname.classList.remove('sr-only');
+          valid = false;
+        } else {
+          errors.firstname.textContent = '';
+          errors.firstname.classList.add('sr-only');
+        }
+
+        // Validate last name
+        if (!inputs.lastname.value.trim()) {
+          errors.lastname.textContent = 'Last name is required.';
+          errors.lastname.classList.remove('sr-only');
+          valid = false;
+        } else {
+          errors.lastname.textContent = '';
+          errors.lastname.classList.add('sr-only');
+        }
+
+        // Validate email with regex
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!inputs.email.value.trim()) {
+          errors.email.textContent = 'Email is required.';
+          errors.email.classList.remove('sr-only');
+          valid = false;
+        } else if (!emailRegex.test(inputs.email.value.trim())) {
+          errors.email.textContent = 'Please enter a valid email address.';
+          errors.email.classList.remove('sr-only');
+          valid = false;
+        } else {
+          errors.email.textContent = '';
+          errors.email.classList.add('sr-only');
+        }
+
+        // Validate password (min 8 chars)
+        if (!inputs.password.value) {
+          errors.password.textContent = 'Password is required.';
+          errors.password.classList.remove('sr-only');
+          valid = false;
+        } else if (inputs.password.value.length < 8) {
+          errors.password.textContent = 'Password must be at least 8 characters.';
+          errors.password.classList.remove('sr-only');
+          valid = false;
+        } else {
+          errors.password.textContent = '';
+          errors.password.classList.add('sr-only');
+        }
+
+        // Validate terms checkbox
+        if (!inputs.terms.checked) {
+          valid = false;
+        }
+
+        submitBtn.disabled = !valid;
+      };
+
+      Object.values(inputs).forEach(input => {
+        input.addEventListener('input', validate);
+        // checkbox uses change event for better UX
+        if (input.type === 'checkbox') {
+          input.addEventListener('change', validate);
+        }
+      });
+
+      // Password toggle button logic
+      const toggleBtn = form.querySelector('.password-toggle');
+      toggleBtn.addEventListener('click', () => {
+        const pwd = inputs.password;
+        if (pwd.type === 'password') {
+          pwd.type = 'text';
+          toggleBtn.setAttribute('aria-pressed', 'true');
+        } else {
+          pwd.type = 'password';
+          toggleBtn.setAttribute('aria-pressed', 'false');
+        }
+      });
+
+      // Clear form on submit (simulate dynamic)
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        submitBtn.textContent = 'Creating...';
+        submitBtn.disabled = true;
+
+        // Simulate submission delay
+        setTimeout(() => {
+          alert(`Account created successfully for ${inputs.firstname.value} ${inputs.lastname.value}!`);
+          form.reset();
+          submitBtn.textContent = 'Create account';
+          validate();
+        }, 1700);
+      });
+
+      // Initial validation check
+      validate();
+
+      // Setup social buttons events for demo
+      document.getElementById('btn-google').addEventListener('click', () => {
+        alert('Google sign-in coming soon!');
+      });
+      document.getElementById('btn-apple').addEventListener('click', () => {
+        alert('Apple sign-in coming soon!');
+      });
+
+    })();
+  </script>
+
+  <style>
+    /* Screen-reader only style */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
+</body>
+</html>
+
