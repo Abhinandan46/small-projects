@@ -116,7 +116,7 @@
     <!-- Name & Heading -->
     <h1 class="text-4xl sm:text-6xl font-extrabold leading-tight text-gray-900">
       Hi, I'm
-      <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500 drop-shadow-lg animate-glow">
+      <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500 drop-shadow-lg animate-glow animate-float">
         Abhinandan
       </span>
     </h1>
@@ -173,7 +173,7 @@
   window.onload = type;
 </script>
 
-<!-- ✅ Tailwind Animate Glow (optional) -->
+
 <style>
 @keyframes glow {
   0%, 100% { text-shadow: 0 0 10px rgba(168, 85, 247, 0.8); }
@@ -182,11 +182,31 @@
 .animate-glow {
   animation: glow 2s infinite ease-in-out;
 }
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.progress-bar {
+  width: 0%;
+  transition: width 2s ease;
+}
 </style>
 
 
   <!-- About Section -->
-  <section id="about" class="max-w-7xl mx-auto px-6 py-20 md:flex md:items-center md:gap-12">
+  <section id="about" class="max-w-7xl mx-auto px-6 py-20 md:flex md:items-center md:gap-12 fade-in-up">
   <!-- Image -->
   <div class="md:w-1/2 relative rounded-lg overflow-hidden shadow-xl shadow-purple-500/30">
     <img 
@@ -210,82 +230,166 @@
 
 
  <!-- Skills Section -->
-<section id="skills" class="bg-white py-16">
+<section id="skills" class="bg-white py-16 fade-in-up">
   <div class="max-w-7xl mx-auto px-6">
     <h2 class="text-4xl font-extrabold text-indigo-600 text-center mb-12">Skills</h2>
 
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8 max-w-6xl mx-auto text-center">
 
       <!-- HTML -->
-      <div class="bg-orange-50 shadow-md rounded-xl p-6 hover:scale-105 transition">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" class="w-14 h-14 mx-auto mb-4" />
-        <p class="text-orange-600 font-semibold">HTML</p>
+      <div class="bg-orange-50 shadow-md rounded-xl p-6 hover:scale-105 hover:shadow-2xl hover:shadow-indigo-500/50 transition">
+        <div class="flex items-center mb-4">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" class="w-10 h-10 mr-4" />
+          <div class="flex-1">
+            <p class="text-orange-600 font-semibold">HTML</p>
+            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+              <div class="bg-orange-500 h-2 rounded-full progress-bar" data-width="90"></div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- CSS -->
-      <div class="bg-blue-50 shadow-md rounded-xl p-6 hover:scale-105 transition">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" class="w-14 h-14 mx-auto mb-4" />
-        <p class="text-blue-600 font-semibold">CSS</p>
+      <div class="bg-blue-50 shadow-md rounded-xl p-6 hover:scale-105 hover:shadow-2xl hover:shadow-indigo-500/50 transition">
+        <div class="flex items-center mb-4">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" class="w-10 h-10 mr-4" />
+          <div class="flex-1">
+            <p class="text-blue-600 font-semibold">CSS</p>
+            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+              <div class="bg-blue-500 h-2 rounded-full progress-bar" data-width="85"></div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- JavaScript -->
-      <div class="bg-yellow-50 shadow-md rounded-xl p-6 hover:scale-105 transition">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" class="w-14 h-14 mx-auto mb-4" />
-        <p class="text-yellow-600 font-semibold">JavaScript</p>
+      <div class="bg-yellow-50 shadow-md rounded-xl p-6 hover:scale-105 hover:shadow-2xl hover:shadow-indigo-500/50 transition">
+        <div class="flex items-center mb-4">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" class="w-10 h-10 mr-4" />
+          <div class="flex-1">
+            <p class="text-yellow-600 font-semibold">JavaScript</p>
+            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+              <div class="bg-yellow-500 h-2 rounded-full progress-bar" data-width="80"></div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- React -->
-      <div class="bg-cyan-50 shadow-md rounded-xl p-6 hover:scale-105 transition">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" class="w-14 h-14 mx-auto mb-4 animate-spin-slow" />
-        <p class="text-cyan-700 font-semibold">React</p>
+      <div class="bg-cyan-50 shadow-md rounded-xl p-6 hover:scale-105 hover:shadow-2xl hover:shadow-indigo-500/50 transition">
+        <div class="flex items-center mb-4">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" class="w-10 h-10 mr-4 animate-spin-slow" />
+          <div class="flex-1">
+            <p class="text-cyan-700 font-semibold">React</p>
+            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+              <div class="bg-cyan-500 h-2 rounded-full progress-bar" data-width="75"></div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Tailwind CSS ✅ FIXED -->
-      <div class="bg-sky-50 shadow-md rounded-xl p-6 hover:scale-105 transition">
-        <img src="https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg" class="w-14 h-14 mx-auto mb-4" />
-        <p class="text-sky-600 font-semibold">Tailwind CSS</p>
+      <div class="bg-sky-50 shadow-md rounded-xl p-6 hover:scale-105 hover:shadow-2xl hover:shadow-indigo-500/50 transition">
+        <div class="flex items-center mb-4">
+          <img src="https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg" class="w-10 h-10 mr-4" />
+          <div class="flex-1">
+            <p class="text-sky-600 font-semibold">Tailwind CSS</p>
+            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+              <div class="bg-sky-500 h-2 rounded-full progress-bar" data-width="85"></div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Git -->
-      <div class="bg-red-50 shadow-md rounded-xl p-6 hover:scale-105 transition">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" class="w-14 h-14 mx-auto mb-4" />
-        <p class="text-red-600 font-semibold">Git</p>
+      <div class="bg-red-50 shadow-md rounded-xl p-6 hover:scale-105 hover:shadow-2xl hover:shadow-indigo-500/50 transition">
+        <div class="flex items-center mb-4">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" class="w-10 h-10 mr-4" />
+          <div class="flex-1">
+            <p class="text-red-600 font-semibold">Git</p>
+            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+              <div class="bg-red-500 h-2 rounded-full progress-bar" data-width="70"></div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Node.js -->
-      <div class="bg-green-50 shadow-md rounded-xl p-6 hover:scale-105 transition">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" class="w-14 h-14 mx-auto mb-4" />
-        <p class="text-green-600 font-semibold">Node.js</p>
+      <div class="bg-green-50 shadow-md rounded-xl p-6 hover:scale-105 hover:shadow-2xl hover:shadow-indigo-500/50 transition">
+        <div class="flex items-center mb-4">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" class="w-10 h-10 mr-4" />
+          <div class="flex-1">
+            <p class="text-green-600 font-semibold">Node.js</p>
+            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+              <div class="bg-green-500 h-2 rounded-full progress-bar" data-width="65"></div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- MongoDB -->
-      <div class="bg-emerald-50 shadow-md rounded-xl p-6 hover:scale-105 transition">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" class="w-14 h-14 mx-auto mb-4" />
-        <p class="text-emerald-700 font-semibold">MongoDB</p>
+      <div class="bg-emerald-50 shadow-md rounded-xl p-6 hover:scale-105 hover:shadow-2xl hover:shadow-indigo-500/50 transition">
+        <div class="flex items-center mb-4">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" class="w-10 h-10 mr-4" />
+          <div class="flex-1">
+            <p class="text-emerald-700 font-semibold">MongoDB</p>
+            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+              <div class="bg-emerald-500 h-2 rounded-full progress-bar" data-width="60"></div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- API Integration ✅ FIXED -->
-      <div class="bg-indigo-50 shadow-md rounded-xl p-6 hover:scale-105 transition">
-        <img src="https://cdn-icons-png.flaticon.com/512/11491/11491603.png" alt="API Integration" class="w-14 h-14 mx-auto mb-4" />
-        <p class="text-indigo-600 font-semibold">API Integration</p>
+      <div class="bg-indigo-50 shadow-md rounded-xl p-6 hover:scale-105 hover:shadow-2xl hover:shadow-indigo-500/50 transition">
+        <div class="flex items-center mb-4">
+          <img src="https://cdn-icons-png.flaticon.com/512/11491/11491603.png" alt="API Integration" class="w-10 h-10 mr-4" />
+          <div class="flex-1">
+            <p class="text-indigo-600 font-semibold">API Integration</p>
+            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+              <div class="bg-indigo-500 h-2 rounded-full progress-bar" data-width="70"></div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- UI/UX Design -->
-      <div class="bg-pink-50 shadow-md rounded-xl p-6 hover:scale-105 transition">
-        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="w-14 h-14 mx-auto mb-4" />
-        <p class="text-pink-600 font-semibold">UI/UX Design</p>
+      <div class="bg-pink-50 shadow-md rounded-xl p-6 hover:scale-105 hover:shadow-2xl hover:shadow-indigo-500/50 transition">
+        <div class="flex items-center mb-4">
+          <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="w-10 h-10 mr-4" />
+          <div class="flex-1">
+            <p class="text-pink-600 font-semibold">UI/UX Design</p>
+            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+              <div class="bg-pink-500 h-2 rounded-full progress-bar" data-width="75"></div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Figma -->
-      <div class="bg-purple-50 shadow-md rounded-xl p-6 hover:scale-105 transition">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" class="w-14 h-14 mx-auto mb-4" />
-        <p class="text-purple-700 font-semibold">Figma</p>
+      <div class="bg-purple-50 shadow-md rounded-xl p-6 hover:scale-105 hover:shadow-2xl hover:shadow-indigo-500/50 transition">
+        <div class="flex items-center mb-4">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" class="w-10 h-10 mr-4" />
+          <div class="flex-1">
+            <p class="text-purple-700 font-semibold">Figma</p>
+            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+              <div class="bg-purple-500 h-2 rounded-full progress-bar" data-width="80"></div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Problem Solving -->
-      <div class="bg-gray-50 shadow-md rounded-xl p-6 hover:scale-105 transition">
-        <img src="https://cdn-icons-png.flaticon.com/512/5332/5332696.png" class="w-14 h-14 mx-auto mb-4" />
-        <p class="text-gray-700 font-semibold">Problem Solving</p>
+      <div class="bg-gray-50 shadow-md rounded-xl p-6 hover:scale-105 hover:shadow-2xl hover:shadow-indigo-500/50 transition">
+        <div class="flex items-center mb-4">
+          <img src="https://cdn-icons-png.flaticon.com/512/5332/5332696.png" class="w-10 h-10 mr-4" />
+          <div class="flex-1">
+            <p class="text-gray-700 font-semibold">Problem Solving</p>
+            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+              <div class="bg-gray-500 h-2 rounded-full progress-bar" data-width="85"></div>
+            </div>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -294,24 +398,24 @@
 
 
   <!-- Services Section -->
-  <section id="services" class="max-w-7xl mx-auto px-6 py-20 text-center">
+  <section id="services" class="max-w-7xl mx-auto px-6 py-20 text-center fade-in-up">
     <h2 class="text-4xl font-extrabold text-indigo-700 mb-14">Services</h2>
     <div class="grid gap-12 md:grid-cols-3">
-      <div class="bg-white rounded-xl shadow-lg p-8 hover:shadow-indigo-400/40 transition cursor-default select-none">
+      <div class="bg-white rounded-xl shadow-lg p-8 hover:shadow-indigo-400/40 hover:scale-105 transition cursor-default select-none">
         <div class="inline-flex p-6 bg-indigo-100 rounded-full mb-6 justify-center items-center w-20 h-20 mx-auto">
           <svg class="w-10 h-10 text-indigo-600" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M3 4a2 2 0 0 1 2-2h6l2 2h6a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><line x1="12" y1="12" x2="12" y2="12"/></svg>
         </div>
         <h3 class="text-2xl font-semibold mb-3 text-indigo-600">Web Development</h3>
         <p class="text-gray-600 max-w-md mx-auto">Building responsive, modern websites and applications with clean code and best practices.</p>
       </div>
-      <div class="bg-white rounded-xl shadow-lg p-8 hover:shadow-indigo-400/40 transition cursor-default select-none">
+      <div class="bg-white rounded-xl shadow-lg p-8 hover:shadow-indigo-400/40 hover:scale-105 transition cursor-default select-none">
         <div class="inline-flex p-6 bg-indigo-100 rounded-full mb-6 justify-center items-center w-20 h-20 mx-auto">
           <svg class="w-10 h-10 text-indigo-600" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
         </div>
         <h3 class="text-2xl font-semibold mb-3 text-indigo-600">UI/UX Design</h3>
         <p class="text-gray-600 max-w-md mx-auto">Designing intuitive, accessible interfaces focused on usability and aesthetics.</p>
       </div>
-      <div class="bg-white rounded-xl shadow-lg p-8 hover:shadow-indigo-400/40 transition cursor-default select-none">
+      <div class="bg-white rounded-xl shadow-lg p-8 hover:shadow-indigo-400/40 hover:scale-105 transition cursor-default select-none">
         <div class="inline-flex p-6 bg-indigo-100 rounded-full mb-6 justify-center items-center w-20 h-20 mx-auto">
           <svg class="w-10 h-10 text-indigo-600" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-3-3.87"></path><path d="M4 4v1a2 2 0 0 0 2 2h14"></path></svg>
         </div>
@@ -322,12 +426,12 @@
   </section>
 
   <!-- Projects Section -->
-  <section id="projects" class="bg-indigo-50 py-20">
+  <section id="projects" class="bg-indigo-50 py-20 fade-in-up">
     <div class="max-w-7xl mx-auto px-6">
       <h2 class="text-4xl font-extrabold text-indigo-700 text-center mb-12">My Projects</h2>
       <div class="grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
         <!-- Project 1 -->
-        <a href="https://small-projects-duo.netlify.app/portfolio3" aria-label="Project 1 - Portfolio Website" class="group block bg-white rounded-2xl shadow-lg hover:shadow-indigo-400/50 transition overflow-hidden">
+        <a href="https://small-projects-duo.netlify.app/portfolio3" aria-label="Project 1 - Portfolio Website" class="group block bg-white rounded-2xl shadow-lg hover:shadow-indigo-400/50 hover:shadow-2xl hover:-translate-y-2 transition overflow-hidden">
           <div class="overflow-hidden rounded-t-2xl h-48 relative">
             <img src="data:image/jpeg;base64,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" alt="Screenshot of a modern portfolio website with purple and yellow theme showing home and about sections" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.style.display='none'" />
           </div>
@@ -337,7 +441,7 @@
           </div>
         </a>
         <!-- Project 2 -->
-        <a href="https://small-projects-duo.netlify.app/amazon" aria-label="Project 2 - E-commerce Platform" class="group block bg-white rounded-2xl shadow-lg hover:shadow-indigo-400/50 transition overflow-hidden">
+        <a href="https://small-projects-duo.netlify.app/amazon" aria-label="Project 2 - E-commerce Platform" class="group block bg-white rounded-2xl shadow-lg hover:shadow-indigo-400/50 hover:shadow-2xl hover:-translate-y-2 transition overflow-hidden">
           <div class="overflow-hidden rounded-t-2xl h-48 relative">
             <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/71bd7378-fd2e-46b2-911c-9231b85c4c8b.png" alt="Screenshot of an e-commerce web interface with product listing and clean design" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.style.display='none'" />
           </div>
@@ -347,7 +451,7 @@
           </div>
         </a>
         <!-- Project 3 -->
-        <a href="https://small-projects-duo.netlify.app/landingpage" aria-label="Project 3 - Task Manager App" class="group block bg-white rounded-2xl shadow-lg hover:shadow-indigo-400/50 transition overflow-hidden">
+        <a href="https://small-projects-duo.netlify.app/landingpage" aria-label="Project 3 - Task Manager App" class="group block bg-white rounded-2xl shadow-lg hover:shadow-indigo-400/50 hover:shadow-2xl hover:-translate-y-2 transition overflow-hidden">
           <div class="overflow-hidden rounded-t-2xl h-48 relative">
             <img src="https://cdn.prod.website-files.com/65bb7884c67879aa0d84f24e/65c0eb721ea864f342f436f8_What-are-landing-pages-and-why-do-you-need-to-use-them.jpeg" alt="Screenshot of a clean minimalistic task manager app interface showing task lists and progress" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.style.display='none'" />
           </div>
@@ -361,11 +465,13 @@
   </section>
 
   <!-- Contact Section -->
-  <section id="contact" class="bg-gray-100 py-20">
+  <section id="contact" class="bg-gray-100 py-20 fade-in-up">
     <div class="max-w-7xl mx-auto px-6">
       <h2 class="text-4xl font-extrabold text-center text-gray-900 mb-12">Contact</h2>
       <div class="md:flex md:space-x-16 justify-between">
-        <form action="https://formsubmit.co/abhinandansahore46@gmail.com" class="md:w-2/3 space-y-6" onsubmit="event.preventDefault(); alert('Message sent! (demo)');">
+        <form action="https://formsubmit.co/abhinandansahore46@gmail.com" method="POST" class="md:w-2/3 space-y-6">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_next" value="#contact">
           <div>
             <label for="name" class="block font-semibold mb-2">Name</label>
             <input type="text" id="name" name="name" placeholder="Enter your name" required class="w-full rounded-lg border border-indigo-300 bg-indigo-900/80 text-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition" />
@@ -378,10 +484,16 @@
             <label for="message" class="block font-semibold mb-2">Message</label>
             <textarea id="message" name="message" placeholder="Enter your message" rows="5" required class="w-full rounded-lg border border-indigo-300 bg-indigo-900/80 text-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"></textarea>
           </div>
-          <button type="submit" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-8 py-3 rounded-lg shadow-lg transition">Submit</button>
+          <button type="submit" class="inline-block bg-indigo-600 hover:bg-indigo-700 hover:animate-pulse text-white font-semibold px-8 py-3 rounded-lg shadow-lg transition">Submit</button>
           <p class="mt-3 text-sm text-indigo-600 underline cursor-pointer hover:text-indigo-800" onclick="window.location.href='mailto:abhinandan.sh@gmail.com'">Send me email directly</p>
         </form>
-        <aside class="mt-12 md:mt-0 md:w-1/3 space-y-8 text-center md:text-left">
+        <aside class="md:w-1/3 mt-8 md:mt-0">
+          <div>
+            <h3 class="text-2xl font-bold mb-4 text-gray-900">Newsletter</h3>
+            <p class="text-gray-600 mb-4">Subscribe to get updates on new projects and tech insights.</p>
+            <input type="email" placeholder="Your email" class="w-full p-3 border border-indigo-300 rounded-lg mb-4" id="newsletter-email" />
+            <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg transition" onclick="subscribeNewsletter()">Subscribe</button>
+          </div>
           <div>
             <h3 class="text-2xl font-extrabold mb-2 text-gray-900">Email</h3>
             <a href="mailto:abhinandansahore46@gmail.com" class="text-indigo-600 hover:text-indigo-800 break-all font-medium">abhinandansahore46@gmail.com</a>
@@ -392,38 +504,40 @@
           </div>
           <div>
             <h3 class="text-2xl font-extrabold mb-4 text-gray-900">Social</h3>
-          <div class="flex justify-center md:justify-start space-x-8 text-lg">
-  <a href="#" aria-label="Stack Overflow Profile" class="text-gray-600 hover:text-orange-500 transition">
-    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M17.21 21.24v-6.36h1.98v8.34H4.08v-8.34h1.96v6.36zm-7.19-3.18 6.88 1.55.65-2.87-6.89-1.55zm.9-4.88 6.6 2.94 1.27-2.85-6.6-2.94zm1.6-5.01 5.49 4 1.76-2.43-5.49-4zm3.94-4.14 2.89 5.01 2.04-1.17-2.89-5.01z"/>
-    </svg>
-  </a>
-
-  <a href="https://www.instagram.com/abhinandan_sahore_" target="_blank" aria-label="Instagram Profile" class="text-gray-600 hover:text-pink-500 transition">
-  <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5A4.25 4.25 0 0 0 20.5 16.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5zm4.25 3.25a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zm0 1.5a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm4.38-.88a.88.88 0 1 1-1.76 0 .88.88 0 0 1 1.76 0z"/>
-  </svg>
-</a>
-
-
-  <a href="https://github.com/Abhinandan46" target="_blank" aria-label="GitHub Profile" class="text-gray-600 hover:text-gray-900 transition">
-    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 0a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58v-2.16c-3.34.73-4.04-1.61-4.04-1.61-.54-1.39-1.33-1.76-1.33-1.76-1.09-.75.08-.74.08-.74 1.2.07 1.83 1.23 1.83 1.23 1.07 1.82 2.8 1.3 3.49.99.11-.77.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.91 0-1.3.47-2.36 1.24-3.2-.13-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.48 11.48 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.25 2.87.12 3.17.77.84 1.23 1.9 1.23 3.2 0 4.58-2.81 5.6-5.49 5.9.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58A12 12 0 0 0 12 0z"/>
-    </svg>
-  </a>
-
-  <a href="https://www.linkedin.com/in/Abhinandan Sahore" target="_blank" aria-label="LinkedIn Profile" class="text-gray-600 hover:text-blue-700 transition">
-    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M19 0H5C2.2 0 0 2.2 0 5v14c0 2.8 2.2 5 5 5h14c2.8 0 5-2.2 5-5V5c0-2.8-2.2-5-5-5zM8.4 20.4H5.1v-10.8H8.4v10.8zM6.8 8.9a1.8 1.8 0 1 1 0-3.6 1.8 1.8 0 0 1 0 3.6zM20.4 20.4h-3.3v-5.6c0-1.3 0-3-1.9-3-2 0-2.4 1.6-2.4 2.9v5.7h-3.3v-10.8h3.2v1.5h.1a3.5 3.5 0 0 1 3.1-1.7c3.3 0 3.9 2.1 3.9 4.9v5.1z"/>
-    </svg>
-  </a>
-</div>
-
+            <div class="flex justify-center md:justify-start space-x-8 text-lg">
+              <a href="#" aria-label="Stack Overflow Profile" class="text-gray-600 hover:text-orange-500 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M17.21 21.24v-6.36h1.98v8.34H4.08v-8.34h1.96v6.36zm-7.19-3.18 6.88 1.55.65-2.87-6.89-1.55zm.9-4.88 6.6 2.94 1.27-2.85-6.6-2.94zm1.6-5.01 5.49 4 1.76-2.43-5.49-4zm3.94-4.14 2.89 5.01 2.04-1.17-2.89-5.01z"/>
+                </svg>
+              </a>
+              <a href="https://www.instagram.com/abhinandan_sahore_" target="_blank" aria-label="Instagram Profile" class="text-gray-600 hover:text-pink-500 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5A4.25 4.25 0 0 0 20.5 16.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5zm4.25 3.25a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zm0 1.5a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm4.38-.88a.88.88 0 1 1-1.76 0 .88.88 0 0 1 1.76 0z"/>
+                </svg>
+              </a>
+              <a href="https://github.com/Abhinandan46" target="_blank" aria-label="GitHub Profile" class="text-gray-600 hover:text-gray-900 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58v-2.16c-3.34.73-4.04-1.61-4.04-1.61-.54-1.39-1.33-1.76-1.33-1.76-1.09-.75.08-.74.08-.74 1.2.07 1.83 1.23 1.83 1.23 1.07 1.82 2.8 1.3 3.49.99.11-.77.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.91 0-1.3.47-2.36 1.24-3.2-.13-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.48 11.48 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.25 2.87.12 3.17.77.84 1.23 1.9 1.23 3.2 0 4.58-2.81 5.6-5.49 5.9.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58A12 12 0 0 0 12 0z"/>
+                </svg>
+              </a>
+              <a href="https://www.linkedin.com/in/abhinandan-sahore" target="_blank" aria-label="LinkedIn Profile" class="text-gray-600 hover:text-blue-700 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19 0H5C2.2 0 0 2.2 0 5v14c0 2.8 2.2 5 5 5h14c2.8 0 5-2.2 5-5V5c0-2.8-2.2-5-5-5zM8.4 20.4H5.1v-10.8H8.4v10.8zM6.8 8.9a1.8 1.8 0 1 1 0-3.6 1.8 1.8 0 0 1 0 3.6zM20.4 20.4h-3.3v-5.6c0-1.3 0-3-1.9-3-2 0-2.4 1.6-2.4 2.9v5.7h-3.3v-10.8h3.2v1.5h.1a3.5 3.5 0 0 1 3.1-1.7c3.3 0 3.9 2.1 3.9 4.9v5.1z"/>
+                </svg>
+              </a>
+            </div>
           </div>
         </aside>
       </div>
     </div>
   </section>
+
+  <!-- Back to Top Button -->
+  <button id="back-to-top" class="fixed bottom-8 right-8 bg-indigo-600 hover:bg-indigo-700 hover:shadow-2xl hover:shadow-indigo-500/50 text-white p-3 rounded-full shadow-lg transition-all duration-300 opacity-0 pointer-events-none z-50" aria-label="Back to top">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+    </svg>
+  </button>
 
   <!-- Footer -->
   <footer class="bg-indigo-600 text-indigo-200 py-8 mt-12">
@@ -480,6 +594,80 @@
     themeToggle.addEventListener('click', () => {
       setTheme(!isDarkMode());
     });
+
+    // Back to top button
+    const backToTopBtn = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+        backToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+      } else {
+        backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+        backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+      }
+    });
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Scroll animations
+    const observerOptions = {
+      threshold: 0.1
+    };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+    document.querySelectorAll('.fade-in-up').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Animate progress bars when skills section is visible
+    const skillsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const bars = entry.target.querySelectorAll('.progress-bar');
+          bars.forEach(bar => {
+            const width = bar.getAttribute('data-width');
+            bar.style.width = width + '%';
+          });
+        }
+      });
+    }, { threshold: 0.5 });
+    skillsObserver.observe(document.getElementById('skills'));
+
+    // Form validation
+    const form = document.querySelector('form');
+    form.addEventListener('submit', (e) => {
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      if (!name || !email || !message) {
+        e.preventDefault();
+        alert('Please fill in all fields.');
+        return;
+      }
+      if (!/\S+@\S+\.\S+/.test(email)) {
+        e.preventDefault();
+        alert('Please enter a valid email.');
+        return;
+      }
+      // If valid, allow form submission to send email
+    });
+
+    // Newsletter subscription
+    function subscribeNewsletter() {
+      const email = document.getElementById('newsletter-email').value.trim();
+      if (!email || !/\S+@\S+\.\S+/.test(email)) {
+        alert('Please enter a valid email.');
+        return;
+      }
+      alert('Subscribed! (demo)');
+      document.getElementById('newsletter-email').value = '';
+    }
 
   </script>
 
